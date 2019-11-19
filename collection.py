@@ -36,7 +36,7 @@ class Collection:
         if limit:
             docs = docs.limit(limit)
 
-        return docs.get()
+        return docs.stream()
 
     def getone(self, key, value):
         """Get first matching document
@@ -53,13 +53,13 @@ class Collection:
         doc = next(docs, None)
 
         # ---- convert document to dictionary
-        coll_id = ""
+        doc_id = ""
         doc_dict = None
         if doc:
             doc_dict = doc.to_dict()
-            coll_id = doc.id
+            doc_id = doc.id
 
-        return coll_id, doc_dict
+        return doc_id, doc_dict
 
     def new(self, doc):
         """Create a new document

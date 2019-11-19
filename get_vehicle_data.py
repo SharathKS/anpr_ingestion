@@ -26,7 +26,7 @@ def get_vehicle_data(db, vrm):
         vcoll = VehiclesCollection(db)
 
         # ---- get vehicle data from cloud firestore
-        coll_id, vehicle = vcoll.getone(vrm=vrm)
+        doc_id, vehicle = vcoll.getone(vrm=vrm)
 
         if not vehicle:
             # ---- vehicle does not exist
@@ -35,7 +35,7 @@ def get_vehicle_data(db, vrm):
             #      the vehicle details
 
             vehicle = {"vrm": vrm, "updateRequired": True}
-            coll_id = vcoll.new(vehicle)
+            doc_id = vcoll.new(vehicle)
 
         else:
             # ---- check if vehicle document has expired
@@ -55,7 +55,7 @@ def get_vehicle_data(db, vrm):
         # ---- TBA handle expected exceptions
         raise
 
-    return vehicle
+    return doc_id, vehicle
 
 if __name__ == "__main__":
     import sys
@@ -74,7 +74,7 @@ if __name__ == "__main__":
             # ---- use default value
             vrm = "AA11FRD"
 
-        vehicle = get_vehicle_data(db, vrm)
-        print("vehicle: {}".format(vehicle))
+        doc_id, vehicle = get_vehicle_data(db, vrm)
+        print("doc_id: {}, vehicle: {}".format(doc_id, vehicle))
 
     main()

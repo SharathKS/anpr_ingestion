@@ -1,4 +1,4 @@
-"""Configuration for the anpr_capture service
+"""Configuration for the anpr_ingestion service
 """
 
 class ConfigBase:
