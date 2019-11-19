@@ -34,7 +34,7 @@ def get_vehicle_data(db, vrm):
             #      triggers another process to update this document with
             #      the vehicle details
 
-            vehicle = {"vrm": vrm, "updateRequired": True}
+            vehicle = {"data": {"vrm": vrm}, "updateRequired": True}
             doc_id = vcoll.new(vehicle)
 
         else:
@@ -42,14 +42,13 @@ def get_vehicle_data(db, vrm):
             today = get_days()
             last_update = get_days(vehicle.get("last_update", 0))
             expired = (today - last_update) > CFG.VEHICLE_DATA_EXPIRY
-
             if expired:
                 # ---- set updateRequired flag
                 #      thisc will trigger an update of the document
 
                 vehicle["updateRequired"] = True
                 vehicle["last_update"] = int(time.time())
-                vcoll.save(coll_id, vehicle, merge=True)
+                vcoll.save(doc_id, vehicle, merge=True)
 
     except Exception as exc:
         # ---- TBA handle expected exceptions
@@ -72,7 +71,7 @@ if __name__ == "__main__":
             vrm = sys.argv[1]
         else:
             # ---- use default value
-            vrm = "AA11FRD"
+            vrm = "AA04TEST"
 
         doc_id, vehicle = get_vehicle_data(db, vrm)
         print("doc_id: {}, vehicle: {}".format(doc_id, vehicle))

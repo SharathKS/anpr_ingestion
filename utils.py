@@ -15,7 +15,8 @@ def get_days(dtime=None):
     return -- number of days since epoch
     dtime  -- no. of secs since epoch
     """
-    dtime = dtime or time.time()
+    if dtime is None:
+        dtime = time.time()
 
     return int(dtime/86400)
 

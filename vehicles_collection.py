@@ -30,18 +30,18 @@ class VehiclesCollection(Collection):
         """
         return super(VehiclesCollection, self).getone("data.vrm", vrm)
 
-    def save(self, id, vehicle, merge=True):
+    def save(self, doc_id, vehicle, merge=True):
         """Save document
 
         If merge=True, merge the document into an existing document, otherwise
         overwrite it.
 
-        id      -- document id
+        doc_id  -- document id
         vehicle -- vehicle document (dict)
         merge   -- boolean
         """
 
-        self.coll_ref.document(id).set(vehicle, merge=merge)
+        super(VehiclesCollection, self).save(doc_id, vehicle, merge=merge)
 
 
 if __name__ == "__main__":

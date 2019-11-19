@@ -74,3 +74,16 @@ class Collection:
         self.coll_ref.document(ref.id).set(doc, merge=False)
 
         return ref.id
+
+    def save(self, doc_id, doc, merge=True):
+        """Save document
+
+        If merge=True, merge the document into an existing document, otherwise
+        overwrite it.
+
+        doc_id  -- document id
+        doc     -- document (dict)
+        merge   -- boolean
+        """
+
+        self.coll_ref.document(doc_id).set(doc, merge=merge)
