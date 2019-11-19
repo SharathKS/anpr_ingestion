@@ -1,0 +1,21 @@
+#!/bin/bash
+
+REGION="europe-west2"
+
+#project="nexus-cf-test"
+PROJECT="nexus-ingress-dev"
+
+DEVICE_ID="${1:-1}"           # camera id
+TOKEN="${2:-A123}"
+RFILE="${3:-capture.json}"    # name of file containing request body
+
+if [ "${RFILE:-}" = "" ]
+then
+    echo "usage ${0} <device-id> <token> <filename>"
+    exit 1
+fi
+
+url="https://${REGION}-${PROJECT}.cloudfunctions.net/anpr_ingestion?deviceId=${DEVICE_ID}&token=${TOKEN}"
+
+echo "url: ${url}"
+http POST "${url}" < $RFILE

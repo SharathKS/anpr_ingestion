@@ -28,7 +28,7 @@ class VehiclesCollection(Collection):
         return -- document id, vehicle document (dict)
         vrm    -- Vehicle Registration Mark
         """
-        return super(VehiclesCollection, self).getone("vrm", vrm)
+        return super(VehiclesCollection, self).getone("data.vrm", vrm)
 
     def save(self, id, vehicle, merge=True):
         """Save document
